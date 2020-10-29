@@ -53,6 +53,7 @@ public class PageControlFragment extends Fragment {
         btnNext = l.findViewById(R.id.btnNext);
         btnBack = l.findViewById(R.id.btnBack);
 
+
         btnGo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
