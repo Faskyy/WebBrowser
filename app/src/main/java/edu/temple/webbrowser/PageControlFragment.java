@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
@@ -42,9 +43,10 @@ public class PageControlFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View l = inflater.inflate(R.layout.fragment_page_control, container, false);
+
         et = l.findViewById(R.id.editTextURL);
 
         btnGo = l.findViewById(R.id.btnGo);
@@ -53,7 +55,7 @@ public class PageControlFragment extends Fragment {
 
         btnGo.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 url = et.getText().toString();
                 pageControl.getURL(url);
             }
