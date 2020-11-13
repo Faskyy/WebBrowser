@@ -21,15 +21,10 @@ public class PageControlFragment extends Fragment {
 
     private static final String KEY_URL = "KEY_URL";
 
-    control pageControl;
+    controlInterface pageControl;
     private String url;
     EditText et;
     ImageButton btnGo, btnBack, btnNext;
-
-    public static PageControlFragment newInstance(String url) {
-        PageControlFragment fragment = new PageControlFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,9 +76,9 @@ public class PageControlFragment extends Fragment {
 
     public void onAttach(@NonNull Context context){
         super.onAttach(context);
-        pageControl = (control) context;
-        if (context instanceof control) {
-            pageControl = (control) context;
+        pageControl = (controlInterface) context;
+        if (context instanceof controlInterface) {
+            pageControl = (controlInterface) context;
         } else {
             throw new RuntimeException("You must implement the control interface to attach this fragment");
         }
@@ -95,15 +90,14 @@ public class PageControlFragment extends Fragment {
 
     }
 
+    public void getURL(String url) {
+        et.setText(url);
+    }
 
-    public interface control{
+    public interface controlInterface{
         void getURL(String url);
         void goBack();
         void goNext();
-    }
-
-    public void updateUrlEditText(String url){
-        et.setText(url);
     }
 
 }

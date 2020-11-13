@@ -4,14 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
-public class BrowserActivity extends AppCompatActivity implements PageControlFragment.control, PageViewerFragment.viewer{
+import java.util.ArrayList;
+
+
+public class BrowserActivity extends AppCompatActivity implements PageControlFragment.controlInterface, PageViewerFragment.ViewerInterface,
+        BrowserControlFragment.BrowserCtrlInterface, PageListFragment.PageListInterface{
 
     PageControlFragment controlFrag = new PageControlFragment();
-    PageViewerFragment viewFrag = new PageViewerFragment();
+    BrowserControlFragment browserFrag = new BrowserControlFragment();
+    PagerFragment pagerFrag = new PagerFragment();
+    PageListFragment listFrag = new PageListFragment();
+
+    private ArrayList<PageViewerFragment> pageViewers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +25,22 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         setContentView(R.layout.activity_browser);
         setTitle("Browser Activity");
 
-        if(getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null){
+        if (savedInstanceState == null) {
+            pageViewers = new ArrayList<>();
+            pageViewers.add(new PageViewerFragment());
+        }
 
-            viewFrag = new PageViewerFragment();
+        if(getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null
+        && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null){
+
             FragmentManager FM = getSupportFragmentManager();
 
             FragmentTransaction FT = FM.beginTransaction();
 
-            FT.add(R.id.page_viewer, viewFrag);
+            FT.add(R.id.page_viewer, pagerFrag);
             FT.add(R.id.page_control, controlFrag);
+            FT.add(R.id.browser_control, browserFrag);
+
             FT.commit();
         }
     }
@@ -42,23 +55,36 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Override
-    public void SetURL(String url) {
-        controlFrag.updateUrlEditText(url);
-    }
 
     @Override
     public void getURL(String url) {
-        viewFrag.updateWebsite(url);
+        pagerFrag.updateWebsite(url);
     }
 
     @Override
     public void goBack() {
-        viewFrag.goBack();
+        pagerFrag.goBack();
     }
 
     @Override
     public void goNext() {
-        viewFrag.goNext();
+        pagerFrag.goNext();
     }
+
+    @Override
+    public void newTab() {
+        pagerFrag.newTabFragment();
+    }
+
+    @Override
+    public void getURL(String url, String title) {
+        controlFrag.getURL(url);
+        this.setTitle(title);
+    }
+
+    @Override
+    public void goTab(int position) {
+        pagerFrag.goTab(position);
+    }
+
 }
