@@ -28,22 +28,6 @@ public class PageViewerFragment extends Fragment {
     }
 
 
-    protected PageViewerFragment(Parcel in) {
-    }
-
-    public static final Parcelable.Creator<PageViewerFragment> CREATOR = new Parcelable.Creator<PageViewerFragment>() {
-        @Override
-        public PageViewerFragment createFromParcel(Parcel in) {
-            return new PageViewerFragment(in);
-        }
-
-        @Override
-        public PageViewerFragment[] newArray(int size) {
-            return new PageViewerFragment[size];
-        }
-    };
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,17 +93,12 @@ public class PageViewerFragment extends Fragment {
         return browser.getTitle();
     }
 
-    /*public void updateText(){
-        browser.getTitle();
-    }*/
-
     public void updateWebsite(String url) {
         if (url.indexOf("https://", 0) == -1) {
             url = "https://" + url;
         }
         browser.loadUrl(url);
     }
-
 
     interface ViewerInterface {
         void getURL(String url, String title);

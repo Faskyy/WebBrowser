@@ -14,14 +14,11 @@ import android.widget.AdapterView;
 
 import android.widget.ListView;
 
-
-import java.util.ArrayList;
-
-
 public class PageListFragment extends Fragment {
 
     ListView pageList;
     PageListInterface listInterface;
+    PageListAdapter pageListAdapter;
     Context context;
 
 
@@ -43,7 +40,6 @@ public class PageListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        //  getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
 
