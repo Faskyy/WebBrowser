@@ -31,7 +31,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
         if(getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null
-        && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null){
+                && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null){
 
             FragmentManager FM = getSupportFragmentManager();
 

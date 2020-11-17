@@ -22,15 +22,15 @@
 
     <ImageButton
         android:id="@+id/btnGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="58dp"
+        android:layout_height="51dp"
         android:src="@android:drawable/presence_online"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <ImageButton
         android:id="@+id/btnNext"
@@ -51,7 +51,7 @@
         android:src="@android:drawable/ic_media_rew"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintHorizontal_bias="0.797"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />

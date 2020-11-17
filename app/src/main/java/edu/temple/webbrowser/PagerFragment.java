@@ -3,14 +3,12 @@ package edu.temple.webbrowser;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 
 public class PagerFragment extends Fragment implements PageViewerFragment.ViewerInterface{
     public PagerAdapter pagerAdapter;
@@ -33,7 +31,6 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
             @Override
             public void onPageSelected(int position){
                 super.onPageSelected(position);
-                //pagerAdapter.fragments.get(viewPager2.getCurrentItem()).updateText();
             }
         });
 
@@ -69,5 +66,6 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
     public void goTab(int position) {
         viewPager2.setCurrentItem(position);
     }
+
 
 }

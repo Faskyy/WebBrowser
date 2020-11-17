@@ -22,9 +22,6 @@ public class PageListFragment extends Fragment {
 
     ListView pageList;
     PageListInterface listInterface;
-    PageListAdapter pageListAdapter;
-    ArrayList<String> titles;
-    ArrayList<PageViewerFragment> pageViewerFragments;
     Context context;
 
 
@@ -44,10 +41,16 @@ public class PageListFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        //  getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_page_list, container, false);
         pageList = v.findViewById(R.id.page_list);
-
 
         pageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,28 +59,6 @@ public class PageListFragment extends Fragment {
             }
         });
         return v;
-    }
-
-    public void addTitle(String str) {
-        if (pageListAdapter == null) {
-            titles.add(" ");
-            pageListAdapter = new PageListAdapter(getContext(), titles);
-        }
-        pageListAdapter.addTitle(str);
-    }
-
-    public void updateTitle(String title, int index) {
-        if (pageListAdapter == null) {
-            titles.add(" ");
-            pageListAdapter = new PageListAdapter(getContext(), titles);
-        }
-        pageListAdapter.setTitle(title, index);
-    }
-
-
-    public void update(ArrayList<PageViewerFragment> pageViewerFragments){
-        this.pageViewerFragments = pageViewerFragments;
-
     }
 
     interface PageListInterface {
