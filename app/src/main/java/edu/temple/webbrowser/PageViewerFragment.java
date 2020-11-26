@@ -1,6 +1,5 @@
 package edu.temple.webbrowser;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -8,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +16,6 @@ import android.webkit.WebViewClient;
 public class PageViewerFragment extends Fragment {
     WebView browser;
     ViewerInterface viewerInterface;
-    String setURL;
-    String setTitle;
-
 
     public PageViewerFragment() {
         // Required empty public constructor
@@ -93,6 +87,17 @@ public class PageViewerFragment extends Fragment {
         return browser.getTitle();
     }
 
+    /**
+     * Get the URL of the page currently being displayed
+     * @return the URL of the page currently being viewed
+     */
+    public String getUrl() {
+        if (browser != null)
+            return browser.getUrl();
+        else
+            return "";
+    }
+
     public void updateWebsite(String url) {
         if (url.indexOf("https://", 0) == -1) {
             url = "https://" + url;
@@ -101,7 +106,7 @@ public class PageViewerFragment extends Fragment {
     }
 
     interface ViewerInterface {
-        void getURL(String url, String title);
+        String getURL(String url, String title);
     }
 
 }

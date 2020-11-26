@@ -53,10 +53,14 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
     }
 
     @Override
-    public void getURL(String url, String title) {
+    public String getURL(String url, String title) {
         pagerAdapter.fragments.get(viewPager2.getCurrentItem()).updateWebsite(url);
+        return url;
     }
 
+    public String getCurrentUrl() {
+        return pagerAdapter.fragments.get(viewPager2.getCurrentItem()).getUrl();
+    }
 
     public void updateWebsite(String url) {
         pagerAdapter.fragments.get(viewPager2.getCurrentItem()).updateWebsite(url);
@@ -66,6 +70,5 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
     public void goTab(int position) {
         viewPager2.setCurrentItem(position);
     }
-
 
 }

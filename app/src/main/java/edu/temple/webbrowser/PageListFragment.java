@@ -1,24 +1,30 @@
 package edu.temple.webbrowser;
 
+
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class PageListFragment extends Fragment {
 
     ListView pageList;
     PageListInterface listInterface;
-    PageListAdapter pageListAdapter;
+    ArrayList<String> titles;
+    ArrayList<String> urls;
+    ArrayList<TextView> textViews = new ArrayList<>();
+    ArrayList<PageViewerFragment> pageViewerFragments;
     Context context;
 
 
@@ -35,18 +41,51 @@ public class PageListFragment extends Fragment {
         } else {
             throw new RuntimeException("You must implement PageListInterface to use PageListFragment");
         }
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+//       titles = browserActivity.getTitles();
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_page_list, container, false);
-        pageList = v.findViewById(R.id.page_list);
+        View l = inflater.inflate(R.layout.fragment_page_list, container, false);
+        pageList = l.findViewById(R.id.page_list);
+
+        pageList.setAdapter(new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return pageViewerFragments.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return (String) pageViewerFragments.get(position).getPageTitle();
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView;
+
+                if(convertView == null) {
+                    textView = new TextView((Context) listInterface);
+                    textView.setPadding(3,3,3,3);
+                    textView.setTextSize(20);
+                }
+                else
+                    textView = (TextView) convertView;
+
+                if (pageViewerFragments.isEmpty()) textView.setText("New Page");
+                else
+                    textView.setText(pageViewerFragments.get(position).getPageTitle());
+
+                return textView;
+            }
+        });
 
         pageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,9 +93,14 @@ public class PageListFragment extends Fragment {
                 listInterface.goTab(position);
             }
         });
-        return v;
+
+        return l;
     }
 
+    public void update(ArrayList<PageViewerFragment> pageViewerFragments){
+        this.pageViewerFragments = pageViewerFragments;
+
+    }
     interface PageListInterface {
         void goTab(int position);
     }
