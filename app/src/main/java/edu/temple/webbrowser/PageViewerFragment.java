@@ -7,20 +7,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class PageViewerFragment extends Fragment {
+public class PageViewerFragment extends Fragment implements Parcelable {
+
     WebView browser;
     ViewerInterface viewerInterface;
+    private String url;
 
     public PageViewerFragment() {
         // Required empty public constructor
     }
 
+    protected PageViewerFragment(Parcel in) {
+        url = in.readString();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,6 +110,16 @@ public class PageViewerFragment extends Fragment {
             url = "https://" + url;
         }
         browser.loadUrl(url);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 
     interface ViewerInterface {

@@ -22,10 +22,10 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
                              Bundle savedInstanceState) {
         final View l = inflater.inflate(R.layout.fragment_pager, container, false);
 
-            viewPager2 = l.findViewById(R.id.view_pager);
-            pagerAdapter = new PagerAdapter(getActivity());
-            pagerAdapter.fragments.add(new PageViewerFragment());
-            viewPager2.setAdapter(pagerAdapter);
+        viewPager2 = l.findViewById(R.id.view_pager);
+        pagerAdapter = new PagerAdapter(getActivity());
+        pagerAdapter.fragments.add(new PageViewerFragment());
+        viewPager2.setAdapter(pagerAdapter);
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback(){
             @Override
@@ -38,9 +38,9 @@ public class PagerFragment extends Fragment implements PageViewerFragment.Viewer
     }
 
     public void newTabFragment() {
-            pagerAdapter.fragments.add(new PageViewerFragment());
-            pagerAdapter.notifyDataSetChanged();
-            viewPager2.setCurrentItem(pagerAdapter.fragments.size() - 1);
+        pagerAdapter.fragments.add(new PageViewerFragment());
+        pagerAdapter.notifyDataSetChanged();
+        viewPager2.setCurrentItem(pagerAdapter.fragments.size() - 1);
     }
 
     public void goBack() {

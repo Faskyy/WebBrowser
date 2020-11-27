@@ -90,7 +90,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     }
 
     @Override
-    public void saveBookmark() {
+    public void saveBookmarks() {
         boolean fileExists = false;
         String contents;
         String saveThis;
@@ -127,23 +127,14 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         else
             saveThis = contents + "," + pagerFrag.getCurrentUrl() + "," + pagerFrag.getCurrentUrl();
 
-
         try (FileOutputStream fos = this.openFileOutput(FILENAME_KEY, this.MODE_PRIVATE)){
             fos.write(saveThis.getBytes());
         } catch (Exception e){
             e.printStackTrace();
         }
-
-        Toast.makeText(this, "Bookmark was saved successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Successfully saved bookmark!", Toast.LENGTH_SHORT).show();
         bookmarkString = contents;
     }
-
-    @Override
-    public void openBookmarks() {
-        Intent intent = new Intent(this, BookmarksActivity.class);
-        startActivityForResult(intent, 1);
-    }
-
 
     @Override
     public String getURL(String url, String title) {
@@ -158,3 +149,4 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     }
 
 }
+

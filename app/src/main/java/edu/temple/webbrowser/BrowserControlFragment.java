@@ -7,35 +7,24 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import android.widget.ImageButton;
+
 
 public class BrowserControlFragment extends Fragment {
 
-    private ArrayList<String> list = new ArrayList<String>();
     ImageButton btnTab;
     ImageButton btnBookmark;
     ImageButton btnDisplay;
     BrowserCtrlInterface browserInterface;
-    ArrayList<String> itemList;
 
     public BrowserControlFragment() {
         // Required empty public constructor
     }
-    String[] items = {"Test"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,15 +47,15 @@ public class BrowserControlFragment extends Fragment {
         btnBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                browserInterface.saveBookmark();
+                browserInterface.saveBookmarks();
             }
         });
 
         btnDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                browserInterface.openBookmarks();
+                Intent intent = new Intent(getActivity(), BookmarksActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -94,8 +83,7 @@ public class BrowserControlFragment extends Fragment {
 
     public interface BrowserCtrlInterface {
         void newTab();
-        void saveBookmark();
-        void openBookmarks();
+        void saveBookmarks();
     }
 
 }
