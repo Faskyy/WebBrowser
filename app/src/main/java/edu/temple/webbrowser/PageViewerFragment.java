@@ -29,6 +29,18 @@ public class PageViewerFragment extends Fragment implements Parcelable {
         url = in.readString();
     }
 
+    public static final Creator<PageViewerFragment> CREATOR = new Creator<PageViewerFragment>() {
+        @Override
+        public PageViewerFragment createFromParcel(Parcel in) {
+            return new PageViewerFragment(in);
+        }
+
+        @Override
+        public PageViewerFragment[] newArray(int size) {
+            return new PageViewerFragment[size];
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,10 +106,7 @@ public class PageViewerFragment extends Fragment implements Parcelable {
         return browser.getTitle();
     }
 
-    /**
-     * Get the URL of the page currently being displayed
-     * @return the URL of the page currently being viewed
-     */
+
     public String getUrl() {
         if (browser != null)
             return browser.getUrl();
@@ -119,7 +128,7 @@ public class PageViewerFragment extends Fragment implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeString(url);
     }
 
     interface ViewerInterface {

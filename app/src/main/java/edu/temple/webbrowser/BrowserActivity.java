@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-
+//import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,6 +34,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     BrowserControlFragment browserFrag = new BrowserControlFragment();
     PagerFragment pagerFrag = new PagerFragment();
     PageListFragment listFrag = new PageListFragment();
+    PageViewerFragment pageView = new PageViewerFragment();
     private final String FILENAME_KEY = "bookmarks";
     String bookmarkString;
 
@@ -43,8 +51,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             pageViewers.add(new PageViewerFragment());
         }
 
-        if(getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null
-                && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null){
+
+        if (getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null
+                && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null) {
 
             FragmentManager FM = getSupportFragmentManager();
 
@@ -57,6 +66,28 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             FT.commit();
         }
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.btnShare) {
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, "ShareVia");
+            Toast toast = Toast.makeText(this, "Opening share button...", Toast.LENGTH_LONG);
+            toast.show();
+            startActivity(shareIntent);
+        }
+        return true;
+    }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
