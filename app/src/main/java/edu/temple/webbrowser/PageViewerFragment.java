@@ -41,6 +41,13 @@ public class PageViewerFragment extends Fragment implements Parcelable {
         }
     };
 
+    public static Object newInstance(String dataString) {
+        PageViewerFragment newFrag = new PageViewerFragment();
+        Bundle args = new Bundle();
+        newFrag.setArguments(args);
+        return newFrag;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

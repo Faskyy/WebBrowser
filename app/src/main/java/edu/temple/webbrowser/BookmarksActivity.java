@@ -88,7 +88,6 @@ public class BookmarksActivity extends AppCompatActivity {
             list.add(temp2[5]);
             list.add(temp2[6]);
             list.add(temp2[7]);
-            list.add(temp2[8]);
             urls.add(temp2[i]);
         }
 

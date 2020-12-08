@@ -9,12 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 
 public class PagerFragment extends Fragment implements PageViewerFragment.ViewerInterface{
     public PagerAdapter pagerAdapter;
     private ViewPager2 viewPager2;
 
     public PagerFragment() {
+    }
+
+    public static PagerFragment newInstance(ArrayList<PageViewerFragment> fragments, Object o){
+        PagerFragment newFrag = new PagerFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("KEY_PAGES", fragments);
+        newFrag.setArguments(args);
+        return newFrag;
     }
 
     @Override

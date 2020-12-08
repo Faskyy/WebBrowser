@@ -2,22 +2,17 @@ package edu.temple.webbrowser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 //import android.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,6 +24,8 @@ import java.util.ArrayList;
 
 public class BrowserActivity extends AppCompatActivity implements PageControlFragment.controlInterface, PageViewerFragment.ViewerInterface,
         BrowserControlFragment.BrowserCtrlInterface, PageListFragment.PageListInterface{
+
+    FragmentManager fm;
 
     PageControlFragment controlFrag = new PageControlFragment();
     BrowserControlFragment browserFrag = new BrowserControlFragment();
@@ -45,6 +42,8 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
         setTitle("Browser Activity");
+        fm = getSupportFragmentManager();
+        Fragment frag;
 
         if (savedInstanceState == null) {
             pageViewers = new ArrayList<>();
@@ -54,6 +53,18 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
         if (getSupportFragmentManager().findFragmentById(R.id.page_viewer) == null && getSupportFragmentManager().findFragmentById(R.id.page_control) == null
                 && getSupportFragmentManager().findFragmentById(R.id.view_pager) == null) {
+
+            if ((frag = fm.findFragmentById(R.id.page_viewer)) instanceof PagerFragment)
+                pagerFrag = (PagerFragment) frag;
+            else {
+
+                if (Intent.ACTION_VIEW.equals(getIntent().getAction()))
+                    pagerFrag = PagerFragment.newInstance(pageViewers, PageViewerFragment.newInstance(getIntent().getDataString()));
+                else
+
+                    pagerFrag = PagerFragment.newInstance(pageViewers, PageViewerFragment.newInstance(getIntent().getDataString()));
+            }
+
 
             FragmentManager FM = getSupportFragmentManager();
 
