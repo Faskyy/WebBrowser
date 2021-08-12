@@ -12,3 +12,7 @@
 ### I just tried to keep a simple approach and kept the UI minimalistic yet efficient.
 ### I know it mentions Kotlin but I have never used it before, so I have coded the entire thing in Java.
 
+
+
+
+### Made by Fahd K
